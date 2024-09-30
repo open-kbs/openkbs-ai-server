@@ -64,10 +64,8 @@ yourusername ALL=(ALL) NOPASSWD: /usr/bin/nvidia-smi, /sbin/reboot
 
 Checkout, Build and Run
 ```
-git clone git@github.com:proofofrandomness/servers.git
-git clone git@github.com:proofofrandomness/openkbs-server.git
-cd openkbs-server2
-cd cluster
+git clone git@github.com:open-kbs/openkbs-ai-server.git
+cd openkbs-ai-server
 npm i
 cd ..
 python -m venv .env

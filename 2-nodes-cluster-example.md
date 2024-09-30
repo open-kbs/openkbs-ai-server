@@ -8,12 +8,12 @@ title6="git2"
 title7="smi"
 
 
-cmd1="cd ~/proj/openkbs-server && ./dev_start.sh"
-cmd2="cd ~/proj/openkbs-server2 && BACKEND_PORT=8081 ./dev_start.sh"
-cmd3="cd ~/proj/openkbs-server/fe && npm install && npm start"
-cmd4="cd ~/proj/openkbs-server2/fe && npm install && npm run start1"
-cmd5="cd ~/proj/openkbs-server && allin"
-cmd6="cd ~/proj/openkbs-server2 && git pull origin master"
+cmd1="cd ~/proj/openkbs-ai-server && ./dev_start.sh"
+cmd2="cd ~/proj/openkbs-ai-server2 && BACKEND_PORT=8081 ./dev_start.sh"
+cmd3="cd ~/proj/openkbs-ai-server/fe && npm install && npm start"
+cmd4="cd ~/proj/openkbs-ai-server2/fe && npm install && npm run start1"
+cmd5="cd ~/proj/openkbs-ai-server && allin"
+cmd6="cd ~/proj/openkbs-ai-server2 && git pull origin master"
 cmd7="nvidia-smi"
 
 

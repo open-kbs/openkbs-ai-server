@@ -1,6 +1,6 @@
 # Reinstall ALL
 ```
-cd ~/path/to/openkbs-server
+cd ~/path/to/openkbs-ai-server
 rm -rf .env
 python -m venv .env
 source .env/bin/activate
@@ -9,7 +9,7 @@ source .env/bin/activate
 
 # Reinstall diffusers only
 ```
-cd ~/path/to/openkbs-server
+cd ~/path/to/openkbs-ai-server
 source .env/bin/activate
 pip3 show diffusers
 pip3 uninstall diffusers
