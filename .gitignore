@@ -1,0 +1,10 @@
+*.sock
+.env
+images/*
+tmp_images/*
+tmp_files/*
+leveldb/*
+gitignored_*
+openkbs-server.log
+.idea/
+.vscode/

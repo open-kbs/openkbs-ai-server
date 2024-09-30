@@ -1,0 +1,11 @@
+flask
+flask_cors
+waitress
+requests
+Pillow
+diffusers
+transformers
+accelerate
+split_image
+sentencepiece
+protobuf

@@ -1,0 +1,1 @@
+{"inpainting": true, "exampleQuery": "prompt=A deep sea diver floating,8k,high details&image=https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/sdxl-text2img.png&mask_image=https://huggingface.co/datasets/huggingface/documentation-images/resolve/main/diffusers/sdxl-inpaint-mask.png"}
