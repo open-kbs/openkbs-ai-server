@@ -3,7 +3,6 @@ from transformers import pipeline
 
 pipe = pipeline("text-generation", model="meta-llama/Meta-Llama-3-8B")
 
-Copy
 # Load model directly
 from transformers import AutoTokenizer, AutoModelForCausalLM
 

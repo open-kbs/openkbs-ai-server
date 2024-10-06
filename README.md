@@ -63,9 +63,9 @@ yourusername ALL=(ALL) NOPASSWD: /usr/bin/nvidia-smi, /sbin/reboot
 ```
 
 Checkout, Build and Run
-```
+```bash
 git clone git@github.com:open-kbs/openkbs-ai-server.git
-cd openkbs-ai-server
+cd openkbs-ai-server/cluster
 npm i
 cd ..
 python -m venv .env
@@ -92,14 +92,39 @@ pip3 install torch
 pip3 install -r ./models/requirements_NVIDIA.txt
 ####################
 
-huggingface-cli login
+huggingface-cli login // enter your hugging face token
 npm install -g pm2 nodemon react-scripts
-
-# Replace "g4" with the CURRENT server 
-cp ../servers/g4/gitignored_start.sh ./
-chmod +x ./gitignored_start.sh
-./gitignored_start.sh
 ```
+
+
+# Start the ai-server
+```bash
+./start.sh
+```
+After you execute the command above frontend and backend services will start
+The browser will automatically open http://localhost:7080/register
+
+You will be prompted to provide username and password to register the ai-server admin account
+Once you click the Register button you will be redirected to the login page http://localhost:7080/login
+Type your username and password and you will be logged in to the ai-server admin pannel
+
+In the left menu you will see your AI cluster, and the only server connected.
+Click on your server in the left menu and all server GPUS will appear on the center of the screen
+Under the GPUs, you will see a table with all installable AI Models
+
+Before installing both models: Llama and SD3 you have to request access to download the models from hugging face webasite
+
+https://huggingface.co/meta-llama/Llama-3.1-8B
+https://huggingface.co/stabilityai/stable-diffusion-3-medium
+
+Go back to the ai-server admin panel, in the models table 
+search for "stabilityai--stable-diffusion-3-medium-diffusers" and click install
+then search for "meta-llama--Llama-3.1-8B" and click install
+
+After both models are installed
+
+
+
 
 # Register KBS-server username and login
 ```
