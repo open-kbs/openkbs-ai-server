@@ -47,15 +47,15 @@ mkdir proj
 cd proj
 curl https://raw.githubusercontent.com/creationix/nvm/master/install.sh | bash
 source ~/.bashrc
-nvm install 18
+nvm install 20
 ```
 
-# Add this key to github to have access to openkbs-server repo
-```ssh-keygen -b 2048 -t rsa```
 
 # Passwordless sudo
 ## open sudoers
-```sudo visudo```
+```bash
+sudo visudo
+```
 
 ## Replace yourusername and add the following line after the last line (it is important to be after the last line)
 ```
