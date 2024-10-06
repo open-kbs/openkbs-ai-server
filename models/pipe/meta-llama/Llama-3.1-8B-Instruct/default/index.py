@@ -11,7 +11,7 @@ CUDA_VISIBLE_DEVICES = os.environ["CUDA_VISIBLE_DEVICES"]
 
 def load():
     start_in_ram = time.time()
-    model_id = "meta-llama/Llama-3.1-8B"
+    model_id = "meta-llama/Llama-3.1-8B-Instruct"
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     loaded_in_ram = round(time.time() - start_in_ram, 2)
     start_in_vram = time.time()
