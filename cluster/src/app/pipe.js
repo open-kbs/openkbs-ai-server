@@ -582,6 +582,8 @@ async function callBatchUpscale({
 
 const RESOURCE = {tokens: 'credits', bonusTokens: 'bonusTokens'}
 async function handlePayment({pipeId, payload, transactionJWT, res}) {
+    if (!Object.keys(models)?.length) return true; // no model prices defined -> allow models for free
+
     if (!models[pipeId]) return res.status(500).send({error: `Invalid pipeId ${pipeId}`}) && false;
 
     const {pricePerRequest, pricePerMinute, accountId, modelType} = models[pipeId];
