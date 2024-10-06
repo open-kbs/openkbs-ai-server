@@ -46,19 +46,29 @@ function authFromRemoteServer(serverConnections) {
 function auth(publicKey, serverUsers) {
     return (req, res, next) => {
         let token = req.headers['authorization'] || req.headers['Authorization'] || req.query.token;
-        
+
         const hasUsers = Object.keys(serverUsers).length;
 
         // allow registerUser if no users
-        if (!hasUsers && req.route.path.endsWith('registerUser')) {            
+        if (!hasUsers && req.route.path.endsWith('registerUser')) {
             return next();
         }
 
         if (!hasUsers) {
             return res.status(409).send({ message: 'No registered users' });
         }
+
+        // Determine the original client IP address
+        const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+        // Check if the request is from localhost
+        const isLocalhost = clientIp === '127.0.0.1' || clientIp === '::1';
         
-        // req.route.path => "/pipe/:pipeId"
+        // Ensure that your reverse proxy is configured to set the X-Forwarded-For header
+        // and that your application trusts this header only from known proxies.
+        if (isLocalhost) {
+            return next();
+        }
 
         if (!token) {
             return res.status(401).send({ auth: false, message: 'No token provided.' });
@@ -77,7 +87,7 @@ function auth(publicKey, serverUsers) {
                 } else {
                     return res.status(403).send({ auth: false, message: 'Access denied to ' + req.route.path });
                 }
-                
+
             })
             .catch(err => {
                 return res.status(401).send({ auth: false, message: 'Invalid token provided.' });
