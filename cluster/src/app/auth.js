@@ -58,17 +58,17 @@ function auth(publicKey, serverUsers) {
             return res.status(409).send({ message: 'No registered users' });
         }
 
-        // // Determine the original client IP address
-        // const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-        //
-        // // Check if the request is from localhost
-        // const isLocalhost = clientIp === '127.0.0.1' || clientIp === '::1';
-        //
-        // // Ensure that your reverse proxy is configured to set the X-Forwarded-For header
-        // // and that your application trusts this header only from known proxies.
-        // if (isLocalhost) {
-        //     return next();
-        // }
+        // Determine the original client IP address
+        const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+
+        // Check if the request is from localhost
+        const isLocalhost = clientIp === '127.0.0.1' || clientIp === '::1';
+
+        // Ensure that your reverse proxy is configured to set the X-Forwarded-For header
+        // and that your application trusts this header only from known proxies.
+        if (isLocalhost) {
+            return next();
+        }
 
         if (!token) {
             return res.status(401).send({ auth: false, message: 'No token provided.' });
