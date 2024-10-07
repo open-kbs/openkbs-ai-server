@@ -90,7 +90,7 @@ def free_vram(required_vram, offset = 0.5):
         del pipe  # delete the pipe
         torch.cuda.empty_cache()  # free up the memory
         log(f'Freed VRAM by DELETING --------------------------------> {pipeId}')
-        
+
     return True
 
 
