@@ -62,7 +62,11 @@ function auth(publicKey, serverUsers) {
         const clientIp = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
 
         // Check if the request is from localhost
-        const isLocalhost = clientIp === '127.0.0.1' || clientIp === '::1';
+        const isLocalhost = (clientIp === '127.0.0.1' || // IPv4 localhost
+            clientIp === '::1' ||       // IPv6 localhost
+            clientIp === '0:0:0:0:0:0:0:1' || // Full IPv6 localhost
+            clientIp === '::ffff:127.0.0.1'); // IPv4-mapped IPv6 localhost
+
 
         // Ensure that your reverse proxy is configured to set the X-Forwarded-For header
         // and that your application trusts this header only from known proxies.
