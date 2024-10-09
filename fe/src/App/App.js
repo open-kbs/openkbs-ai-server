@@ -155,9 +155,7 @@ function App() {
         ...clusterArray,
         ...serverConnections.filter(sc => !clusterArray.some(ca => ca.url === sc.url)).map(sc => ({ ...sc, disconnected: true }))
     ];
-
-    console.log(({serverConnections, clusterArray, combinedServers}))
-
+    
     return (<div className="App">
         <APIContext.Provider value={{ APIData, setAPIData }}>
             <Navbar open={open} setOpen={setOpen} />
