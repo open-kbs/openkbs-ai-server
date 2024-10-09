@@ -1,3 +1,5 @@
+![ai-server0.png](examples%2Fai-server.png)
+
 # Apt Get Install
 ```
 sudo apt-get update
