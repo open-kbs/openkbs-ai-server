@@ -11,7 +11,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Badge from '@mui/material/Badge';
-import { Dns as Server, Add, Hub, QuestionMark, Delete } from '@mui/icons-material';
+import {Dns as Server, Add, Hub, QuestionMark, Delete, CloudOff, LinkOff} from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import * as React from "react";
 import ServerPage from "../Cluster/Server.js";
@@ -82,7 +82,7 @@ function App() {
                     } catch(e) {
                         console.log(`unable to patch the state ${e.message}`, {delta: data.delta, nextState})
                     }
-                    
+
                     return nextState;
                 });
             },
@@ -150,6 +150,13 @@ function App() {
     const memUsagePerc = Math.round(parseInt(totals.total_memory_used) / parseInt(totals.total_memory_total) * 100);
     const powerUsagePerc = Math.round(parseInt(totals.total_power_draw) / parseInt(totals.total_power_limit) * 100);
 
+    // Combine clusterArray and serverConnections
+    const combinedServers = [
+        ...clusterArray,
+        ...serverConnections.filter(sc => !clusterArray.some(ca => ca.url === sc.url)).map(sc => ({ ...sc, disconnected: true }))
+    ];
+
+    console.log(({serverConnections, clusterArray, combinedServers}))
 
     return (<div className="App">
         <APIContext.Provider value={{ APIData, setAPIData }}>
@@ -177,7 +184,7 @@ function App() {
                         {(
                             <>
                                 <ListItemButton
-                                    // selected={firstPathSegment === 'network'} 
+                                    // selected={firstPathSegment === 'network'}
                                     component={Link}
                                     sx={{ ...tabStyle, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}
                                 >
@@ -206,32 +213,35 @@ function App() {
                             </>
                         )}
 
-                        {clusterArray?.map((server, index) => {
-                            const totals = calcUsageTotal([server]);
-                            const memUsagePerc = Math.round(parseInt(totals.total_memory_used) / parseInt(totals.total_memory_total) * 100);
-                            const powerUsagePerc = Math.round(parseInt(totals.total_power_draw) / parseInt(totals.total_power_limit) * 100);
+                        {combinedServers.map((server, index) => {
+                            const isDisconnected = server.disconnected;
+                            const totals = isDisconnected ? { total_memory_used: 0, total_memory_total: 0, total_power_draw: 0, total_power_limit: 0 } : calcUsageTotal([server]);
+                            const memUsagePerc = isDisconnected ? 0 : Math.round(parseInt(totals.total_memory_used) / parseInt(totals.total_memory_total) * 100);
+                            const powerUsagePerc = isDisconnected ? 0 : Math.round(parseInt(totals.total_power_draw) / parseInt(totals.total_power_limit) * 100);
                             return (
                                 <ListItemButton
                                     selected={pathSegments[2] === encodeURIComponent(server.url)}
                                     key={index} to={`/cluster/${encodeURIComponent(server.url)}`}
                                     component={Link} sx={{ ...tabStyle, pl: 4, display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                                     <Box sx={{ display: 'flex', alignItems: 'center', width: '100%' }}>
-                                        <ListItemIcon>
+                                        {server?.devices && <ListItemIcon>
                                             <Tooltip title={server?.devices?.map(device => device.queue.map(q => {
                                                 const timeLeft = ((+new Date() - q.timeStarted)/1000).toFixed(2);
-                                                        return (
-                                                            <div id={timeLeft}>
-                                                                {timeLeft} s&nbsp;&nbsp;
-                                                                {q.pipeId}                                                      
-                                                            </div>
-                                                        )
-                                                    }))}>
+                                                return (
+                                                    <div id={timeLeft}>
+                                                        {timeLeft} s&nbsp;&nbsp;
+                                                        {q.pipeId}
+                                                    </div>
+                                                )
+                                            }))}>
                                                 <Badge badgeContent={totals.total_queue_tasks} color="primary">
-                                                    
+
                                                 </Badge>
                                             </Tooltip>
                                             <Server />
-                                        </ListItemIcon>
+                                        </ListItemIcon>}
+
+                                        {isDisconnected && <ListItemIcon><LinkOff style={{color: 'red'}} /></ListItemIcon>  }
 
                                         <ListItemText primary={<Typography fontSize={12}>{server.url}</Typography>}/>
 
@@ -244,7 +254,7 @@ function App() {
                                             }}
                                             aria-label="delete"
                                         >
-                                            <Delete fontSize={"small"} onClick={() => {
+                                            {server.url !== baseAPIUrl && <Delete fontSize={"small"} onClick={() => {
                                                 if (window.confirm("Are you sure you want to delete " + server.url)) {
                                                     APIRequest('post', baseAPIUrl + 'removeConnection', {url: server.url}).then((data) => {
                                                         if (data?.data?.success) {
@@ -254,7 +264,7 @@ function App() {
                                                         }
                                                     });
                                                 }
-                                            }}/>
+                                            }}/>}
                                         </IconButton>
 
                                     </Box>
