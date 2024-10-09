@@ -14,6 +14,28 @@ function applyServerConnectionsRoutes({app, serverConnections, Auth, adminWSBroa
         return res.status(200).send({success: true});
     });
 
+    app.post('/removeConnection', Auth, async (req, res) => {
+        let { url } = req.body;
+
+        try {
+            // Check if the connection exists
+            const connection = await serverConnections.get(url);
+            if (!connection) {
+                return res.status(404).send({ success: false, message: 'Connection not found' });
+            }
+
+            // Remove the connection
+            await serverConnections.del(url);
+
+            // Respond with success
+            return res.status(200).send({ success: true, message: 'Connection removed successfully' });
+        } catch (error) {
+            // Handle any errors that occur during the process
+            console.error('Error removing connection:', error);
+            return res.status(500).send({ success: false, message: 'Internal server error' });
+        }
+    });
+
     app.get('/restartServer', Auth, async (req, res) => {
         process.exit();
     });

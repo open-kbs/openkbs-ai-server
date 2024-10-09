@@ -2,7 +2,7 @@ import './App.css';
 import { useState, useEffect, createContext } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Navbar from './Navbar.js';
-import { Alert, Box, LinearProgress, Typography } from '@mui/material';
+import { Alert, Box, LinearProgress, Typography, IconButton } from '@mui/material';
 import jsondiffpatch from 'jsondiffpatch';
 import Drawer from '@mui/material/Drawer';
 import Toolbar from '@mui/material/Toolbar';
@@ -11,8 +11,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Badge from '@mui/material/Badge';
-import { Dns as Server, Add, Hub, QuestionMark } from '@mui/icons-material';
-
+import { Dns as Server, Add, Hub, QuestionMark, Delete } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
 import * as React from "react";
 import ServerPage from "../Cluster/Server.js";
@@ -235,6 +234,29 @@ function App() {
                                         </ListItemIcon>
 
                                         <ListItemText primary={<Typography fontSize={12}>{server.url}</Typography>}/>
+
+                                        <IconButton
+                                            sx={{
+                                                position: 'absolute',
+                                                bottom: 0,
+                                                right: 0,
+                                                zIndex: 100
+                                            }}
+                                            aria-label="delete"
+                                        >
+                                            <Delete fontSize={"small"} onClick={() => {
+                                                if (window.confirm("Are you sure you want to delete " + server.url)) {
+                                                    APIRequest('post', baseAPIUrl + 'removeConnection', {url: server.url}).then((data) => {
+                                                        if (data?.data?.success) {
+                                                            window.location.replace('/');
+                                                            APIRequest('get', baseAPIUrl + 'restartServer')
+                                                            setTimeout(() => window.location.reload(),1000)
+                                                        }
+                                                    });
+                                                }
+                                            }}/>
+                                        </IconButton>
+
                                     </Box>
                                     <Stack spacing={0} sx={{ width: '80%', mt: 1 }}>
                                         <Typography fontSize={8} >{(totals.total_power_draw).toFixed(0)} W / {(totals.total_power_limit).toFixed(0)} W</Typography>
