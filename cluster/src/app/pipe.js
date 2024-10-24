@@ -166,6 +166,7 @@ function haveEnoughFreeVRAM(device, requiredVRAM) {
 }
 
 function haveEnoughTotalVRAM(device, requiredVRAM) {
+    return true // with cpu offload GPUs can load larger models
     const totalMB = calculateTotal(device, 'memory_total');
     return totalMB * (1024 ** 2) > requiredVRAM
 }
