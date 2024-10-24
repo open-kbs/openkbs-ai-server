@@ -1,4 +1,6 @@
 ![ai-server0.png](examples%2Fai-server.png)
+# Last Updates
+- add support for stable-diffusion-3.5-large
 
 # Apt Get Install
 ```

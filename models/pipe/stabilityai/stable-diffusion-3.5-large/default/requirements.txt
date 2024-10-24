@@ -1,0 +1,6 @@
+transformers
+accelerate
+diffusers
+requests
+tokenizers
+bitsandbytes
