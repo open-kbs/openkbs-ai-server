@@ -272,7 +272,7 @@ async function getRocmSMI(force = false) {
             const jsonData = JSON.parse(jsonString);
 
             // Define regex patterns to match the required values
-            const tempRegex = /(\d+\.\d+)°C/;
+            const tempRegex = /(\d+\.\d+)°?[Cc]/;
             const powerRegex = /(\d+\.\d+)W/;
             const fanRegex = /(\d+)%/;
             const pwrCapRegex = /(\d+\.\d+)W\s+\d+%/;
