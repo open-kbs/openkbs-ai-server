@@ -1,0 +1,54 @@
+{
+  "name": "openkbs-ai-server-fe",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@monaco-editor/react": "^4.5.0",
+    "@mui/icons-material": "^5.11.11",
+    "@mui/lab": "^5.0.0-alpha.140",
+    "@mui/material": "^5.11.15",
+    "axios": "^1.3.4",
+    "base64url": "^3.0.1",
+    "bip39": "^3.1.0",
+    "buffer": "^6.0.3",
+    "crypto-js": "^4.1.1",
+    "jsondiffpatch": "^0.5.0",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.9.0",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^3.5.0"
+  },
+  "scripts": {
+    "start": "PORT=7080 REACT_APP_BACKEND_PORT=8080 react-scripts start",
+    "start_prod1": "PORT=7081 REACT_APP_BACKEND_PORT=8081 react-scripts start",
+    "start_prod2": "PORT=7080 REACT_APP_BACKEND_PORT=8082 react-scripts start",
+    "start_prod3": "PORT=7083 REACT_APP_BACKEND_PORT=8083 react-scripts start",
+    "start_prod": "PORT=${PORT:-7080} REACT_APP_BACKEND_PORT=${BACKEND_PORT:-8080} react-scripts start",
+    "start1": "PORT=7081 REACT_APP_BACKEND_PORT=8081 react-scripts start",
+    "start2": "PORT=7082 REACT_APP_BACKEND_PORT=8082 react-scripts start",
+    "build": "react-scripts build"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

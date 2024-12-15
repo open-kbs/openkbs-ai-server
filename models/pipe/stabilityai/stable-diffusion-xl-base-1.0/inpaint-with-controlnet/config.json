@@ -1,0 +1,1 @@
+{"inpainting": true, "exampleQuery": "prompt=elon musk&strength=0.8&image=https://huggingface.co/datasets/diffusers/test-arrays/resolve/main/stable_diffusion_inpaint/boy.png&mask_image=https://huggingface.co/datasets/diffusers/test-arrays/resolve/main/stable_diffusion_inpaint/boy_mask.png"}

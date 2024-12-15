@@ -1,0 +1,13 @@
+flask
+flask_cors
+waitress
+requests
+Pillow
+diffusers
+transformers
+accelerate
+nvidia-ml-py3
+split_image
+xformers
+sentencepiece
+protobuf

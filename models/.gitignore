@@ -1,0 +1,6 @@
+# dependencies
+.env
+images/*
+tmp_images/*
+models/__*
+**/__pycache__/
